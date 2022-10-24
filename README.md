@@ -1,6 +1,6 @@
 # Sail
 ## Description
-A C package manager and directory supervisor.
+A C package manager and directory supervisor. Sail is designed the perfect the project creation of C as well as the dependency management and library integration. Some other quality-of-life features will be added; such as: building and/or running, header creation, and makefile creation.
 
 ## Index
 - [Sail](#sail)

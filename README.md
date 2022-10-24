@@ -2,9 +2,15 @@
 ## Description
 A C package manager and directory supervisor. Sail is designed the perfect the project creation of C as well as the dependency management and library integration. Some other quality-of-life features will be added; such as: building and/or running, header creation, and makefile creation.
 
+## Layout
+* Develop the modularity of the system using command arguments
+* Complete the error handling for the `unwrap` instances
+* Start the `new-header` command
+
 ## Index
 - [Sail](#sail)
   - [Description](#description)
+  - [Layout](#layout)
   - [Index](#index)
   - [Current Focus](#current-focus)
 - [Features](#features)
@@ -20,8 +26,8 @@ The [command list](#list-of-available-commands) also displays the currently WIP 
 ## List of Available Commands
 * `help`: displays the command list and related information.
 * `init`: creates the directories and files necessary for a new C project.
-* `build`: compiles C files into object files and then into a binary executable using GCC. (awaiting integration)
-* `run`: if created, executes the binary. otherwise, creates and *then* executes the binary. (awaiting integration)
+* `build`: compiles C files into object files and then into a binary executable using GCC.
+* `run`: if created, executes the binary. otherwise, creates and *then* executes the binary.
 * `new-header`: creates a new header file within the project directory in the proper location. (awaiting integration)
 
 # Authors

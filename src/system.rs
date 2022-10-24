@@ -49,18 +49,25 @@ macro_rules! error {
 /// Developer notification
 macro_rules! dev {
     ($expression: expr) => {
-        println!("{}", concat!("[\x1b[38;2;128;0;255m\x1b[1m ** \x1b[0m] ", $expression));
+        if crate::DEBUG != false {
+            println!("{}", concat!("[\x1b[38;2;128;0;255m\x1b[1m ** \x1b[0m] ", $expression));
+        }
     };
     ($format: expr $(,$args: expr)*) => {
-        println!(concat!("[\x1b[38;2;128;0;255m\x1b[1m ** \x1b[0m] ", $format) $(,$args)*);
+        if crate::DEBUG != false {
+            println!(concat!("[\x1b[38;2;128;0;255m\x1b[1m ** \x1b[0m] ", $format) $(,$args)*);
+        }
     };
+    () => {
+        if crate::DEBUG == false { std::process::quit(-2); }
+    }
 }
 
 pub(crate) use working;
 pub(crate) use complete;
 pub(crate) use swarn;
 pub(crate) use error;
-pub(crate) use  dev;
+pub(crate) use dev;
 
 pub fn create_directory(proj_name: &str) {
     let parent_dir = format!("./{}", proj_name);

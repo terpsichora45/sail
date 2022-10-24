@@ -1,4 +1,4 @@
-use std::{io, env, fs, process::Command};
+use std::process::Command;
 
 fn main() {
     let program_output = Command::new("./test-project/main.exe").output().expect("Failed to run binary");

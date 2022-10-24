@@ -1,14 +1,17 @@
 #![allow(non_snake_case)]
 #![allow(unused_imports)]
 
-use std::{io, env, fs, process::*};
+use std::{io, env, fs, process::*, path::Path};
 
 mod system;
 mod parse;
+mod commands;
 
-use system::*;
-use parse::*;
+use crate::system::*;
+use crate::parse::*;
+use crate::commands::*;
 
+pub const DEBUG: bool = true;
 const HELP: &str = "
 \t- Help Menu -
 help       - displays the current menu
@@ -19,15 +22,16 @@ new-header - creates a new header file within the project directory in the prope
 ";
 
 fn run_command(command: &str) -> u8 {
-    working!("Running program");
+    working!("Starting command execution");
     let program_output = match Command::new(command).output() {
         Ok(a) => a,
-        Err(e) => { error!("{}", e); }
+        Err(e) => { dev!("{:?} , {:?}", command, e); error!("{}", e); }
     };
     let output = String::from_utf8(program_output.stdout);
     let errput = String::from_utf8(program_output.stderr);
+    let status_code = program_output.status;
 
-    complete!("Completed program Output: {:?}, Errput: {:?}", output, errput);
+    complete!("Completed command {}\n{}{}", status_code, output.unwrap(), errput.unwrap());
     0
 }
 
@@ -56,7 +60,9 @@ fn main() {
         "build" => {
             working!("Compiling C project");
             swarn!("MAKE SURE YOU HAVE `make` INSTALLED");
-            run_command("make ./test-project/");
+            let root = Path::new("./test-project");
+            assert!(env::set_current_dir(&root).is_ok());
+            run_command("make");
             complete!("Executed make");
         },
         "run" => {
@@ -72,12 +78,12 @@ fn main() {
                 else if !file_type.is_dir() { files.push(p); }
 
             }
-            println!("Directories found: {:?}", directories);
-            println!("Files found: {:?}", files);
+            dev!("Directories found: {:?}", directories);
+            dev!("Files found: {:?}", files);
 
-            working!("Executing program");
-            Command::new("./test-project/main.exe").output().expect("Failed to execute project binary.");
-            complete!("Completed program execution");
+            let root = Path::new("./test-project");
+            assert!(env::set_current_dir(&root).is_ok());
+            run_command("./main.exe.");
         },
         _ => {
             error!("Please provide a valid command");

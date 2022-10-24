@@ -30,6 +30,8 @@ fn main() {
         command_arg = args[2].as_str();
     }
 
+    // TODO: Create a command system
+    // ? Perhaps you can use stringify!() to some extent to adapt the function names to command titles
     match command {
         "help" => {
             println!("{HELP}");

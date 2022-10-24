@@ -16,8 +16,8 @@ A C package manager and directory supervisor. Sail is designed the perfect the p
 - [Features](#features)
   - [List of Available Commands](#list-of-available-commands)
 - [Authors](#authors)
-      - [Terpsichora](#terpsichora)
-      - [Leddoo](#leddoo)
+    - [Terpsichora](#terpsichora)
+    - [Leddoo](#leddoo)
 
 ## Current Focus
 [Operating File](https://github.com/terpsichora45/sail/blob/dev/src/main.rs)<br>
@@ -33,5 +33,5 @@ The [command list](#list-of-available-commands) also displays the currently WIP 
 * `new-header`: creates a new header file within the project directory in the proper location. (awaiting integration)
 
 # Authors
-#### [Terpsichora](https://github.com/terpsichora45/)
-#### [Leddoo](https://github.com/leddoo/)
+### [Terpsichora](https://github.com/terpsichora45/)
+### [Leddoo](https://github.com/leddoo/)

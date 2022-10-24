@@ -1,6 +1,13 @@
 # Sail
 A C package manager and directory supervisor.
 
+## Index
+- [Sail](#sail)
+  - [Index](#index)
+- [Features](#features)
+  - [List of Available Commands](#list-of-available-commands)
+- [Authors](#authors)
+
 # Features
 ## List of Available Commands
 * `help`: displays the command list and related information.

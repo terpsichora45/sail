@@ -17,7 +17,6 @@ A C package manager and directory supervisor. Sail is designed the perfect the p
   - [List of Available Commands](#list-of-available-commands)
 - [Authors](#authors)
   - [Terpsichora](#terpsichora)
-  - [Leddoo](#leddoo)
 
 ## Current Focus
 [Operating File](https://github.com/terpsichora45/sail/blob/dev/src/main.rs)<br>
@@ -34,5 +33,3 @@ The [command list](#list-of-available-commands) also displays the currently WIP 
 
 # Authors
 ## [Terpsichora](https://github.com/terpsichora45/)
-<img src="https://avatars.githubusercontent.com/u/63125641?v=4" style="border-radius:50%; width:70px; height:auto;">
-## [Leddoo](https://github.com/leddoo/)

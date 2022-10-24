@@ -31,4 +31,4 @@ The [command list](#list-of-available-commands) also displays the currently WIP 
 * `new-header`: creates a new header file within the project directory in the proper location. (awaiting integration)
 
 # Authors
-[Terpsichora](https://github.com/terpsichora45/)
+#### [Terpsichora](https://github.com/terpsichora45/)

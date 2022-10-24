@@ -12,7 +12,7 @@ A C package manager and directory supervisor.
 - [Authors](#authors)
 
 ## Current Focus
-[Operating File](https://github.com/terpsichora45/sail/blob/dev/src/bin/test.rs)
+[Operating File](https://github.com/terpsichora45/sail/blob/dev/src/bin/test.rs)<br>
 I am currently working on the command creation system using Rust macros to automatically structure a command vector that stores the command information for easier checking and new command integration.
 
 # Features

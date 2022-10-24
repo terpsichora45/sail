@@ -10,4 +10,4 @@ A C package manager and directory supervisor.
 * `new-header`: creates a new header file within the project directory in the proper location.
 
 # Authors
-<img src="https://avatars.githubusercontent.com/u/63125641?v=4" width="100px" alt="Avatar" border-radius="50%">[Terpsichora](https://github.com/terpsichora45/)
+<a href="url"><img src="https://avatars.githubusercontent.com/u/63125641" height="auto" width="70" style="border-radius:50%"></a>[Terpsichora](https://github.com/terpsichora45/)

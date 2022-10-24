@@ -1,7 +1,7 @@
 #![allow(non_snake_case)]
 #![allow(unused_imports)]
 
-use std::{io, env, fs, process::Command};
+use std::{io, env, fs, process::*};
 
 mod system;
 mod parse;
@@ -11,12 +11,25 @@ use parse::*;
 
 const HELP: &str = "
 \t- Help Menu -
-help       - displays the current menu.
-init       - creates the directories and populates the files.
-build      - compiles C files into Object files and compiles into an executable.
-run        - if created, executes the binary.
-new-header - creates a new header file within the project directory in the proper location.
+help       - displays the current menu
+init       - creates the directories and populates the files
+build      - compiles C files into Object files and compiles into an executable
+run        - if created, executes the binary
+new-header - creates a new header file within the project directory in the proper location
 ";
+
+fn run_command(command: &str) -> u8 {
+    working!("Running program");
+    let program_output = match Command::new(command).output() {
+        Ok(a) => a,
+        Err(e) => { error!("{}", e); }
+    };
+    let output = String::from_utf8(program_output.stdout);
+    let errput = String::from_utf8(program_output.stderr);
+
+    complete!("Completed program Output: {:?}, Errput: {:?}", output, errput);
+    0
+}
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -37,20 +50,19 @@ fn main() {
             println!("{HELP}");
         },
         "init" => {
-            notify!("Creating directory {}...", command_arg);
+            working!("Creating C project directory: `{}`", command_arg);
             system::create_directory(command_arg);
         },
         "build" => {
-            notify!("Compiling C project...");
-            notify!("!!! MAKE SURE YOU HAVE `make` INSTALLED !!!");
-            Command::new("make")
-                .output()
-                .expect("Failed to execute make command. Make sure you have `make` installed.");
+            working!("Compiling C project");
+            swarn!("MAKE SURE YOU HAVE `make` INSTALLED");
+            run_command("make ./test-project/");
+            complete!("Executed make");
         },
         "run" => {
             let mut directories: Vec<fs::DirEntry> = vec![];
             let mut files: Vec<fs::DirEntry> = vec![];
-            let paths = fs::read_dir("./").unwrap();
+            let paths = fs::read_dir("./test-project").unwrap();
 
             for path in paths {
                 let p = path.unwrap();
@@ -60,11 +72,15 @@ fn main() {
                 else if !file_type.is_dir() { files.push(p); }
 
             }
-            println!("{:?}", directories);
-            println!("{:?}", files);
+            println!("Directories found: {:?}", directories);
+            println!("Files found: {:?}", files);
+
+            working!("Executing program");
+            Command::new("./test-project/main.exe").output().expect("Failed to execute project binary.");
+            complete!("Completed program execution");
         },
         _ => {
-            error!("Please provide a valid command.");
+            error!("Please provide a valid command");
         }
     }
 }

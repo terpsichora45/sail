@@ -59,7 +59,7 @@ fn main() {
         },
         "build" => {
             working!("Compiling C project");
-            swarn!("MAKE SURE YOU HAVE `make` INSTALLED");
+            swarn!("MAKE SURE YOU HAVE `make` INSTALLED"); // replace this with some check for make installation
             let root = Path::new("./test-project");
             assert!(env::set_current_dir(&root).is_ok());
             run_command("make");
@@ -83,7 +83,7 @@ fn main() {
 
             let root = Path::new("./test-project");
             assert!(env::set_current_dir(&root).is_ok());
-            run_command("./main.exe.");
+            run_command("./main.exe");
         },
         _ => {
             error!("Please provide a valid command");

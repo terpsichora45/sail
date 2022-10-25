@@ -1,5 +1,6 @@
 # Sail
-<img src="SAILBOAT.png" style="height:100px;">
+<img src="SAILBOAT.png" height="200px" width="auto">
+
 ## Description
 A C package manager and directory supervisor. Sail is designed the perfect the project creation of C as well as the dependency management and library integration. Some other quality-of-life features will be added; such as: building and/or running, header creation, and makefile creation.
 

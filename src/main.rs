@@ -21,72 +21,42 @@ run        - if created, executes the binary
 new-header - creates a new header file within the project directory in the proper location
 ";
 
-fn run_command(command: &str) -> u8 {
-    working!("Starting command execution");
-    let program_output = match Command::new(command).output() {
-        Ok(a) => a,
-        Err(e) => { dev!("{:?} , {:?}", command, e); error!("{}", e); }
-    };
-    let output = String::from_utf8(program_output.stdout);
-    let errput = String::from_utf8(program_output.stderr);
-    let status_code = program_output.status;
-
-    complete!("Completed command {}\n{}{}", status_code, output.unwrap(), errput.unwrap());
-    0
-}
-
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let mut command_arg: &str = ""; // TODO: update the command argument passing
-    if args.len() == 1 {
-        error!("Invalid ammount of arguments. Please use the format `sail <command> <arguments>`");
-    }
-
     let command = args[1].as_str();
+    let mut command_arg: &str = ""; // TODO: update the command argument passing
+
+    check_length(args.clone());
+    parse_arguments(args.clone());
+
     if args.len() == 3 {
         command_arg = args[2].as_str();
     }
 
-    // TODO: Create a command system
-    // ? Perhaps you can use stringify!() to some extent to adapt the function names to command titles
     match command {
-        "help" => {
-            println!("{HELP}");
-        },
+        "help" => { println!("{HELP}"); },
         "init" => {
             working!("Creating C project directory: `{}`", command_arg);
-            system::create_directory(command_arg);
+            create_directory(command_arg);
         },
         "build" => {
             working!("Compiling C project");
             swarn!("MAKE SURE YOU HAVE `make` INSTALLED"); // replace this with some check for make installation
-            let root = Path::new("./test-project");
-            assert!(env::set_current_dir(&root).is_ok());
+
+            change_dir(command_arg);
             run_command("make");
+
             complete!("Executed make");
+            complete!("Completed compilation");
         },
         "run" => {
-            let mut directories: Vec<fs::DirEntry> = vec![];
-            let mut files: Vec<fs::DirEntry> = vec![];
-            let paths = fs::read_dir("./test-project").unwrap();
-
-            for path in paths {
-                let p = path.unwrap();
-                let file_type = p.file_type().unwrap();
-
-                if file_type.is_dir() { directories.push(p); }
-                else if !file_type.is_dir() { files.push(p); }
-
-            }
-            dev!("Directories found: {:?}", directories);
-            dev!("Files found: {:?}", files);
-
-            let root = Path::new("./test-project");
-            assert!(env::set_current_dir(&root).is_ok());
+            read_dir(command_arg);
+            change_dir(command_arg);
             run_command("./main.exe");
         },
-        _ => {
-            error!("Please provide a valid command");
+        "test" => {
+            create_file(command_arg, "#ifndef TEST_H\n#define TEST_H\n\nvoid test(void);\n\n#endif");
         }
+        _ => { error!("Please provide a valid command"); }
     }
 }

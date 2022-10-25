@@ -1,4 +1,5 @@
 # Sail
+<img src="SAILBOAT.png" style="height:100px;">
 ## Description
 A C package manager and directory supervisor. Sail is designed the perfect the project creation of C as well as the dependency management and library integration. Some other quality-of-life features will be added; such as: building and/or running, header creation, and makefile creation.
 
@@ -20,7 +21,7 @@ A C package manager and directory supervisor. Sail is designed the perfect the p
 
 ## Current Focus
 [Operating File](https://github.com/terpsichora45/sail/blob/dev/src/main.rs)<br>
-I am currently working on the command execution handling. I'm ensuring that error codes maintain some form of user-end abstraction while also providing enough information for debugging information for the average user.
+Working on completing the commands and cleaning up the function organization as well as the argument parsing with proper data passage.
 
 # Features
 The [command list](#list-of-available-commands) also displays the currently WIP aspects of Sail.

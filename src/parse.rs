@@ -24,11 +24,11 @@ enum Actions {
     Run,
     Test,
 }
-enum ActionFlags {
-    Debug,
-    Verbose,
-    Silent,
-    ManualFileName,
+struct ActionFlags {
+    debug: bool,
+    verbose: bool,
+    silent: bool,
+    manualFileName: bool,
 }
 
 /// Iterates through the provided arguments and determines the programs functionality based on the provided information

@@ -1,6 +1,6 @@
 #![allow(unused_macros)]
 
-use std::{fs, error::Error, process::{self, Command}, env, path::Path};
+use std::{fs, process::Command, env, path::Path};
 
 macro_rules! working {
     ($expression: expr) => {
@@ -69,7 +69,10 @@ pub(crate) use swarn;
 pub(crate) use error;
 pub(crate) use dev;
 
-pub fn create_directory(proj_name: &str) {
+use crate::parse::*;
+use crate::commands::*;
+
+pub fn create_directory(proj_name: String) {
     let parent_dir = format!("./{}", proj_name);
 
     if let Err(e) = fs::create_dir(&parent_dir) {
@@ -90,8 +93,8 @@ pub fn create_directory(proj_name: &str) {
     complete!("Successfully created project directory");
 }
 
-pub fn create_file(file_name: &str, contents: &str) {
-    match fs::write(file_name, contents) {
+pub fn create_file(file_name: String, contents: &str) {
+    match fs::write(file_name.as_str(), contents) {
         Ok(a) => a,
         Err(e) => { error!("Failed to create `{}` due `os_{}` `{}`", file_name, e.raw_os_error().unwrap(), e); }
     };
@@ -111,8 +114,8 @@ pub fn run_command(command: &str) -> u8 {
     0
 }
 
-pub fn change_dir(dir: &str) {
-    let path = Path::new(dir);
+pub fn change_dir(dir: String) {
+    let path = Path::new(dir.as_str());
     let success = env::set_current_dir(&path).is_ok();
     if !success {
         error!("Failed to change directories");
@@ -120,7 +123,7 @@ pub fn change_dir(dir: &str) {
     complete!("Successfully changed working directory")
 }
 
-pub fn read_dir(dir: &str) {
+pub fn read_dir(dir: String) {
     let mut directories: Vec<fs::DirEntry> = vec![];
     let mut files: Vec<fs::DirEntry> = vec![];
     let paths = match fs::read_dir(dir) {
@@ -138,4 +141,14 @@ pub fn read_dir(dir: &str) {
     }
     dev!("Directories found: {:?}", directories);
     dev!("Files found: {:?}", files);
+}
+
+pub fn execute_command(act: Actions, operand: String, flags: ActionFlags) {
+    match act {
+        Actions::Help => help(),
+        Actions::Init => init(operand, flags),
+        Actions::Build => build(operand, flags),
+        Actions::Run => run(operand, flags),
+        _ => {}
+    }
 }
